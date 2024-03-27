@@ -133,8 +133,7 @@ app.frame("/2", async (c) => {
 
 
 app.frame("/finish", async (c) => {
-  const { deriveState, buttonValue, frameData, previousState } = c;
-  const { fid } = frameData;
+  const { deriveState, buttonValue, frameData } = c;
 
   const state = deriveState((previousState) => {
     previousState.receivingAddress = previousState.receivingAddress;
