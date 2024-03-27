@@ -83,7 +83,7 @@ app.frame("/1", async (c) => {
   const { fid } = frameData;
   const neynarClient = new NeynarAPIClient(process.env.NEYNAR_API_KEY);
   const res = await neynarClient.fetchBulkUsers([fid]);
-  const address = res.users[0].verified_addresses[0].address;
+  const address = res.users[0].verified_addresses[0]?.address || res.users[0].custody_address || '';
   return c.res({
     title: "Create Profile",
     image: defaultContainer(
