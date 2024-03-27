@@ -73,19 +73,27 @@ app.frame("/", (c) => {
       </div>
     ),
     intents: [
-      <Button action="/1">Create Profile</Button>,
+      <Button action="/2">Create Profile</Button>,
     ],
   });
 });
 
-app.frame("/1", async (c) => {
-  const { deriveState, buttonValue, frameData } = c;
+app.frame("/2", async (c) => {
+  const { deriveState, buttonValue, frameData, previousState } = c;
   const { fid } = frameData;
   const neynarClient = new NeynarAPIClient(process.env.NEYNAR_API_KEY);
   const res = await neynarClient.fetchBulkUsers([fid]);
-  const address = res?.users?.[0]?.verified_addresses?.eth_addresses[0] || res?.users?.[0]?.custody_address || 'Sero';
-  console.log(address)
-  if (address) {
+  const state = deriveState((previousState) => {
+    if (previousState.receivingAddressIndex > 0) {
+      previousState.receivingAddress =
+        res.users[0].verified_addresses.eth_addresses[
+          previousState.receivingAddressIndex - 1
+        ];
+    } else {
+      previousState.receivingAddress = res.users[0].custody_address;
+    }
+  })
+
     return c.res({
       title: "Create Profile",
       image: defaultContainer(
@@ -112,55 +120,58 @@ app.frame("/1", async (c) => {
               whiteSpace: "pre-wrap",
             }}
           >
-            Create a profile and join, {`${address}`}
+            Create a profile and join
           </div>
         </div>
       ),
       intents: [
-        <Button action="/2">Customise Profile</Button>,
+        <Button action="/finish">Customise Profile</Button>,
       ],
     })
-  } 
-  if (!address) {
-    return c.res({
-      title: "Create Profile",
-      image: defaultContainer(
-        <div
-          style={{
-            alignItems: "center",
-            border: "6px solid #ff3864",
-            justifyContent: "center",
-            display: "flex",
-            flexDirection: "column",
-            height: "60%",
-            width: "90%",
-          }}
-        >
-          <div
-            style={{
-              color: "white",
-              fontSize: 38,
-              fontStyle: "normal",
-              fontFamily: "Times",
-              letterSpacing: "-0.025em",
-              lineHeight: 1.4,
-              padding: "0 80px",
-              whiteSpace: "pre-wrap",
-            }}
-          >
-            NO PROFILE
-          </div>
-        </div>
-      ),
-      intents: [
-        <Button action="/2">WHY NO PROFILE {`${address}`}</Button>,
-      ],
-    })
-  
-  }
   
 })
 
+
+app.frame("/finish", async (c) => {
+  const { deriveState, buttonValue, frameData, previousState } = c;
+  const { fid } = frameData;
+
+    return c.res({
+      title: "finish",
+      image: defaultContainer(
+        <div
+          style={{
+            alignItems: "center",
+            border: "6px solid #ff3864",
+            justifyContent: "center",
+            display: "flex",
+            flexDirection: "column",
+            height: "60%",
+            width: "90%",
+          }}
+        >
+          <div
+            style={{
+              color: "white",
+              fontSize: 38,
+              fontStyle: "normal",
+              fontFamily: "Times",
+              letterSpacing: "-0.025em",
+              lineHeight: 1.4,
+              padding: "0 80px",
+              whiteSpace: "pre-wrap",
+            }}
+          >
+            Create a profile and join {previousState.receivingAddress }
+          </div>
+        </div>
+      ),
+      intents: [
+        <Button action="/done">done</Button>,
+      ],
+    })
+  
+})
 
 const IPFS_GATEWAYS = ["https://cloudflare-ipfs.com"];
 
