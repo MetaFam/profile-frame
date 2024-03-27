@@ -7,7 +7,7 @@ import { handle } from "frog/vercel";
 export const app = new Frog({
   assetsPath: "/",
   basePath: "/api",
-  browserLocation: "/",
+  browserLocation: "/", 
   secret: process.env.SECRET,
   initialState: {
     class: "",
@@ -83,41 +83,45 @@ app.frame("/1", async (c) => {
   const { fid } = frameData;
   const neynarClient = new NeynarAPIClient(process.env.NEYNAR_API_KEY);
   const res = await neynarClient.fetchBulkUsers([fid]);
-  const address = res.users[0].verified_addresses[0]?.address || res.users[0].custody_address || '';
-  return c.res({
-    title: "Create Profile",
-    image: defaultContainer(
-      <div
-        style={{
-          alignItems: "center",
-          border: "6px solid #ff3864",
-          justifyContent: "center",
-          display: "flex",
-          flexDirection: "column",
-          height: "60%",
-          width: "90%",
-        }}
-      >
+  const address = res?.users?.[0]?.verified_addresses[0]?.eth_addresses[0] || res?.users?.[0]?.custody_address || 'Sero';
+
+  if (address) {
+    return c.res({
+      title: "Create Profile",
+      image: defaultContainer(
         <div
           style={{
-            color: "white",
-            fontSize: 38,
-            fontStyle: "normal",
-            fontFamily: "Times",
-            letterSpacing: "-0.025em",
-            lineHeight: 1.4,
-            padding: "0 80px",
-            whiteSpace: "pre-wrap",
+            alignItems: "center",
+            border: "6px solid #ff3864",
+            justifyContent: "center",
+            display: "flex",
+            flexDirection: "column",
+            height: "60%",
+            width: "90%",
           }}
         >
-          Create a profile and join, {address}
+          <div
+            style={{
+              color: "white",
+              fontSize: 38,
+              fontStyle: "normal",
+              fontFamily: "Times",
+              letterSpacing: "-0.025em",
+              lineHeight: 1.4,
+              padding: "0 80px",
+              whiteSpace: "pre-wrap",
+            }}
+          >
+            Create a profile and join, {address}
+          </div>
         </div>
-      </div>
-    ),
-    intents: [
-      <Button action="/2">Customise Profile</Button>,
-    ],
-  })
+      ),
+      intents: [
+        <Button action="/2">Customise Profile</Button>,
+      ],
+    })
+  }
+  
 })
 
 
