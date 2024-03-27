@@ -136,6 +136,11 @@ app.frame("/finish", async (c) => {
   const { deriveState, buttonValue, frameData, previousState } = c;
   const { fid } = frameData;
 
+  const state = deriveState((previousState) => {
+    previousState.receivingAddress = previousState.receivingAddress;
+  })
+
+
     return c.res({
       title: "finish",
       image: defaultContainer(
@@ -162,7 +167,7 @@ app.frame("/finish", async (c) => {
               whiteSpace: "pre-wrap",
             }}
           >
-            Create a profile and join {previousState.receivingAddress }
+            Create a profile and join {state.receivingAddress }
           </div>
         </div>
       ),
