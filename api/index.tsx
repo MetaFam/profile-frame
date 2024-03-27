@@ -12,7 +12,7 @@ export const app = new Frog({
   initialState: {
     class: "",
     drinkCount: 0,
-    name: "",
+    name: "chimp",
     receivingAddress: "",
     receivingAddressIndex: 0,
   },
