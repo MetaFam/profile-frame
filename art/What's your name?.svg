@@ -1,0 +1,13 @@
+<svg viewBox="0 0 191 100">
+  <style>
+    text {
+      text-anchor: middle;
+    }
+  </style>
+  <text x="50%" y="30%" font-size="20" fill="black">
+    What's your name?
+  </text>
+  <text x="50%" y="60%" font-size="20" fill="black">
+    dysbulic?
+  </text>
+</svg>
