@@ -4,10 +4,6 @@ import { serveStatic } from 'frog/serve-static'
 import { neynar } from 'frog/hubs'
 import { NeynarAPIClient } from '@neynar/nodejs-sdk'
 import 'dotenv/config'
-import { Name } from '../components/Name.js'
-import { Address } from '../components/Address.js'
-import { PfP } from '../components/PfP.js'
-import { Finalize } from '../components/Finalize.js'
 import { handle } from 'frog/vercel'
 
 const neynarKey = (
@@ -40,6 +36,90 @@ const noUserResponseConfig = {
   intents: [
     <Button.Reset>Start Over</Button.Reset>,
   ],
+}
+
+export const Address = () => {
+  return (
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      color: 'white',
+      fontSize: '35pt',
+      lineHeight: '7',
+      width: '100%',
+      height: '100%',
+    }}>
+      <p>What's your</p>
+      <p>Ethereum</p>
+      <p>address?</p>
+    </div>
+  )
+}
+
+export const Finalize = () => {
+  return (
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      color: 'white',
+      fontSize: '35pt',
+      lineHeight: '7',
+      width: '100%',
+      height: '100%',
+    }}>
+      <p style={{ color: 'blue' }}>Done with configuration.</p>
+      <p style={{ textAlign: 'center', color: 'green' }}>Now, visit MetaGame’s site to write your profile to the Ceramic network.</p>
+    </div>
+  )
+}
+
+export const Name = ({ name }) => {
+  return (
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      color: 'white',
+      fontSize: '35pt',
+      lineHeight: '7',
+      width: '100%',
+      height: '100%',
+    }}>
+      <p>What’s your name?</p>
+      <p>{name}?</p>
+    </div>
+  
+  )
+}
+
+export const PfP = ({ url }) => {
+  return (
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      color: 'white',
+      fontSize: '35pt',
+      lineHeight: '7',
+      width: '100%',
+      height: '100%',
+    }}>
+      <img
+        style={{
+          maxWidth: '100%',
+          maxHeight: '100%',
+        }}
+        src={url}
+        alt="Profile Picture"
+      />
+    </div>
+  )
 }
 
 export const app = new Frog({
