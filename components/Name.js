@@ -1,5 +1,5 @@
 export const Name = ({ name }) => (
-  <section style={{
+  <div style={{
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -12,5 +12,5 @@ export const Name = ({ name }) => (
   }}>
     <p>What’s your name?</p>
     <p>{name}?</p>
-  </section>
+  </div>
 )

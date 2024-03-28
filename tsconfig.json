@@ -16,5 +16,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["**/*.ts", "**/*.tsx", "**/*.mtsx", "components/Name.js", "components/Address.js", "components/Finalize.js", "components/PfP.js"]
+  "include": ["**/*.ts", "**/*.tsx", "**/*.mtsx"]
 }

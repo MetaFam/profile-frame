@@ -1,5 +1,5 @@
 export const Address = () => (
-  <section style={{
+  <div style={{
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -13,5 +13,5 @@ export const Address = () => (
     <p>What's your</p>
     <p>Ethereum</p>
     <p>address?</p>
-  </section>
+  </div>
 )

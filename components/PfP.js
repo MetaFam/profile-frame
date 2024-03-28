@@ -1,5 +1,5 @@
 export const PfP = ({ url }) => (
-  <section style={{
+  <div style={{
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -18,5 +18,5 @@ export const PfP = ({ url }) => (
       src={url}
       alt="Profile Picture"
     />
-  </section>
+  </div>
 )

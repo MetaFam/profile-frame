@@ -1,5 +1,5 @@
 export const Finalize = () => (
-  <section style={{
+  <div style={{
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -12,5 +12,5 @@ export const Finalize = () => (
   }}>
     <p style={{ color: 'blue' }}>Done with configuration.</p>
     <p style={{ textAlign: 'center', color: 'green' }}>Now, visit MetaGame’s site to write your profile to the Ceramic network.</p>
-  </section>
+  </div>
 )
