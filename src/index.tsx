@@ -8,6 +8,7 @@ import { Name } from './Name.js'
 import { Address } from './Address.js'
 import { PfP } from './PfP.js'
 import { Finalize } from './Finalize.js'
+import { handle } from 'frog/vercel'
 
 const neynarKey = (
   process.env.NEYNAR_API_KEY
@@ -143,3 +144,6 @@ app.frame('/04-finish', async (ctx) => {
 })
 
 devtools(app, { serveStatic })
+
+export const GET = handle(app)
+export const POST = handle(app)
