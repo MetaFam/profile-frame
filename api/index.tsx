@@ -43,6 +43,8 @@ const noUserResponseConfig = {
 }
 
 export const app = new Frog({
+  basePath: '/api',
+  browserLocation: '/:path',
   verify: false,
   secret: (
     process.env.FROG_SECRET
@@ -51,7 +53,7 @@ export const app = new Frog({
   hub: neynar({ apiKey: neynarKey }),
   initialState: {},
 })
-
+ 
 app.frame('/', (ctx) => (
   ctx.res({
     image: (
