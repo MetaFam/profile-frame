@@ -38,6 +38,25 @@ const noUserResponseConfig = {
   ],
 }
 
+const defaultContainer = (children: JSX.Element) => (
+  <div
+    style={{
+      alignItems: "center",
+      background: "black",
+      backgroundSize: "100% 100%",
+      display: "flex",
+      flexDirection: "column",
+      flexWrap: "nowrap",
+      height: "100%",
+      justifyContent: "center",
+      textAlign: "center",
+      width: "100%",
+    }}
+  >
+    {children}
+  </div>
+);
+
 export const Address = () => {
   return (
     <div style={{
@@ -162,7 +181,9 @@ app.frame('/01-name', async (ctx) => {
   return ctx.res({
     action: '/02-address',
     title: 'What’s Your Name?',
-    image: <Name {...{ name }}/>,
+    image: defaultContainer(
+      <Name {...{ name }} />
+    ),
     intents: [
       <TextInput placeholder="I’m…"/>,
       <Button value={name}>You Got It</Button>,
@@ -186,7 +207,9 @@ app.frame('/02-address', async (ctx) => {
   return ctx.res({
     action: '/03-image',
     title: 'What’s Your Address?',
-    image: <Address/>,
+    image: defaultContainer(
+      <Address/>
+    ),
     intents: (
       (addresses.length > 4 || addresses.length === 0) ? [
         <TextInput placeholder="My address is…"/>,
@@ -215,7 +238,9 @@ app.frame('/03-image', async (ctx) => {
   return ctx.res({
     action: '/04-finish',
     title: 'What’s Your PfP URL?',
-    image: <PfP {...{ url }}/>,
+    image: defaultContainer(
+      <PfP {...{ url }}/>
+    ),
     intents: [
       <TextInput placeholder="My PfP URL is…"/>,
       <Button value={url}>That’s Good</Button>,
