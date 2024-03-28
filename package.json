@@ -1,5 +1,5 @@
 {
-  "name": "frame-guild-character-quest",
+  "name": "metagame-join-frames",
   "private": true,
   "type": "module",
   "scripts": {
@@ -8,15 +8,15 @@
     "deploy": "vercel"
   },
   "dependencies": {
-    "@neynar/nodejs-sdk": "^1.11.2",
+    "@neynar/nodejs-sdk": "^1.13.1",
     "dotenv": "^16.4.5",
-    "frog": "latest",
+    "frog": "0.7.13",
     "hono": "^4",
     "viem": "^2.7.22"
   },
   "devDependencies": {
     "tsx": "^4.7.1",
-    "typescript": "^5.3.3",
+    "typescript": "latest",
     "vercel": "^32.4.1"
   }
 }

@@ -75,8 +75,9 @@ app.frame('/01-name', async (ctx) => {
     action: '/02-address',
     image: <Name {...{ name }}/>,
     intents: [
-      <Button value={name}>Sure</Button>,
       <TextInput placeholder="I’m…"/>,
+      <Button value={name}>You Got It</Button>,
+      <Button>Use the Typed Value</Button>,
     ],
   })
 })
@@ -105,6 +106,7 @@ app.frame('/02-address', async (ctx) => {
           return <Button value={addr}>{short}</Button>
         }),
         <TextInput placeholder="My address is…"/>,
+        <Button>Use the Typed Value</Button>,
       ]
     ),
   })
@@ -124,15 +126,19 @@ app.frame('/03-image', async (ctx) => {
     action: '/04-finish',
     image: <PfP {...{ url }}/>,
     intents: [
-      <Button value={url}>That’s Good</Button>,
       <TextInput placeholder="My PfP URL is…"/>,
+      <Button value={url}>That’s Good</Button>,
+      <Button>Use the Typed Value</Button>,
     ],
   })
 })
 
 app.frame('/04-finish', async (ctx) => {
   return ctx.res({
-    image: <Finalize/>
+    image: <Finalize/>,
+    intents: [
+      <Button.Redirect location="https://meta-links.vercel.app">Save To Ceramic</Button.Redirect>,
+    ],
   })
 })
 
