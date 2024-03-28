@@ -43,19 +43,23 @@ const noUserResponseConfig = {
 }
 
 export const app = new Frog({
-  basePath: '/api',
-  browserLocation: '/:path',
+  assetsPath: "/",
+  basePath: "/api",
+  browserLocation: "/",
   verify: false,
   secret: (
     process.env.FROG_SECRET
     ?? (() => { throw new Error('`$FROG_SECRET` not set.') })()
   ),
+  initialState: {
+    omg: '🐸',
+  },
   hub: neynar({ apiKey: neynarKey }),
-  initialState: {},
 })
  
-app.frame('/', (ctx) => (
-  ctx.res({
+app.frame('/', (ctx) => {
+  return ctx.res({
+    title: 'Join MetaGame?',
     image: (
       'https://bafybeido6bybdho7tx3klzzycxvbi2qbmcs2zxz7snjhoi3bmbw5eej3ga.ipfs.w3s.link/Join%20MetaGame%3F.png'
     ),
@@ -64,7 +68,7 @@ app.frame('/', (ctx) => (
       <Button.Link href="https://enter.metagame.wtf">¿WTF’s 𝐌𝐞𝐭𝐚𝐆𝐚𝐦𝐞?</Button.Link>,
     ]
   })
-))
+})
 
 app.frame('/01-name', async (ctx) => {
   console.debug({ c: JSON.stringify(ctx, null, 2) })
@@ -74,8 +78,10 @@ app.frame('/01-name', async (ctx) => {
   const {
     display_name: name,
   } = user ?? {}
+
   return ctx.res({
     action: '/02-address',
+    title: 'What’s Your Name?',
     image: <Name {...{ name }}/>,
     intents: [
       <TextInput placeholder="I’m…"/>,
@@ -99,6 +105,7 @@ app.frame('/02-address', async (ctx) => {
   } = user ?? {}
   return ctx.res({
     action: '/03-image',
+    title: 'What’s Your Address?',
     image: <Address/>,
     intents: (
       (addresses.length > 4 || addresses.length === 0) ? [
@@ -127,6 +134,7 @@ app.frame('/03-image', async (ctx) => {
   const { pfp_url: url } = user ?? {}
   return ctx.res({
     action: '/04-finish',
+    title: 'What’s Your PfP URL?',
     image: <PfP {...{ url }}/>,
     intents: [
       <TextInput placeholder="My PfP URL is…"/>,
@@ -139,6 +147,7 @@ app.frame('/03-image', async (ctx) => {
 app.frame('/04-finish', async (ctx) => {
   return ctx.res({
     image: <Finalize/>,
+    title: 'Finalize Your Profile',
     intents: [
       <Button.Redirect location="https://meta-links.vercel.app">Save To Ceramic</Button.Redirect>,
     ],
